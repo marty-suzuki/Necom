@@ -63,7 +63,7 @@ extension GitHubSearchLogicModelTests {
     }
 
     private final class MockGitHubSearchAPIModel: GitHubSearchAPIModelType {
-        private(set) lazy var action: ActionProxy<GitHubSearchAPIModel.Action> = { fatalError() }()
+        private(set) lazy var action: ActionProxy<GitHubSearchAPIModel.Action> = undefined()
         private(set) var delegate: DelegateProxy<GitHubSearchAPIModelDelegate>?
 
         private(set) var query: String?

@@ -17,6 +17,10 @@ extension GitHub.Repository {
     }
 }
 
-struct MockError: Error {
-    let localizedDescription = "MockError"
+struct MockError: Error, LocalizedError {
+    let errorDescription = "MockError"
+}
+
+func undefined<T>() -> T {
+    fatalError()
 }
