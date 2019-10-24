@@ -21,8 +21,8 @@ protocol GitHubSearchAPIModelType: AnyObject {
 
 final class GitHubSearchAPIModel: SeedModel<GitHubSearchAPIModel>, GitHubSearchAPIModelType {
 
-    init(session: URLSession = .shared) {
-        super.init(state: .init(), extra: Extra(session: session))
+    init(extra: Extra = .init(dataTask: URLSession.shared.dataTask)) {
+        super.init(state: .init(), extra: extra)
     }
 }
 
@@ -33,11 +33,12 @@ extension GitHubSearchAPIModel {
     }
 
     struct State: StateType {
-        var task: URLSessionTask?
+        var task: SessionTask?
     }
 
     struct Extra: ExtraType {
-        let session: URLSession
+        typealias DataTaskCompletionHandler = (Data?, URLResponse?, Error?) -> Void
+        let dataTask: (URLRequest, @escaping DataTaskCompletionHandler) -> SessionTask
     }
 
     static func make(state: StateProxy<State>,
@@ -58,7 +59,7 @@ extension GitHubSearchAPIModel {
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
             state.task?.cancel()
-            let task = extra.session.dataTask(with: url) { data, response, error in
+            let task = extra.dataTask(request) { data, response, error in
                 if let error = error {
                     delegate.searchError(error)
                     return
@@ -83,3 +84,9 @@ extension GitHubSearchAPIModel {
     }
 }
 
+protocol SessionTask {
+    func resume()
+    func cancel()
+}
+
+extension URLSessionTask: SessionTask {}
