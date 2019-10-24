@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Necom",
+        "repositoryURL": "https://github.com/marty-suzuki/Necom",
+        "state": {
+          "branch": "master",
+          "revision": "3483b5cb1a625652558abf53fa8020c0e376ac59",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
