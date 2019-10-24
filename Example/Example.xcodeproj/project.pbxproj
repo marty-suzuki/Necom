@@ -18,7 +18,6 @@
 		ED13124F2361FFDB009EDFA1 /* GitHubSearchAPIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED13124E2361FFDB009EDFA1 /* GitHubSearchAPIModel.swift */; };
 		ED1312512361FFFC009EDFA1 /* GitHubSearchLogicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1312502361FFFC009EDFA1 /* GitHubSearchLogicModel.swift */; };
 		ED13125323620013009EDFA1 /* GitHubSearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED13125223620013009EDFA1 /* GitHubSearchPresenter.swift */; };
-		ED13125B23620579009EDFA1 /* ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED13125A23620579009EDFA1 /* ExampleTests.swift */; };
 		ED1312632362078B009EDFA1 /* GitHubSearchAPIModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1312622362078B009EDFA1 /* GitHubSearchAPIModelTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -46,7 +45,6 @@
 		ED1312502361FFFC009EDFA1 /* GitHubSearchLogicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubSearchLogicModel.swift; sourceTree = "<group>"; };
 		ED13125223620013009EDFA1 /* GitHubSearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubSearchPresenter.swift; sourceTree = "<group>"; };
 		ED13125823620579009EDFA1 /* ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		ED13125A23620579009EDFA1 /* ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleTests.swift; sourceTree = "<group>"; };
 		ED13125C23620579009EDFA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ED1312622362078B009EDFA1 /* GitHubSearchAPIModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubSearchAPIModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -109,7 +107,6 @@
 		ED13125923620579009EDFA1 /* ExampleTests */ = {
 			isa = PBXGroup;
 			children = (
-				ED13125A23620579009EDFA1 /* ExampleTests.swift */,
 				ED13125C23620579009EDFA1 /* Info.plist */,
 				ED1312622362078B009EDFA1 /* GitHubSearchAPIModelTests.swift */,
 			);
@@ -237,7 +234,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ED13125B23620579009EDFA1 /* ExampleTests.swift in Sources */,
 				ED1312632362078B009EDFA1 /* GitHubSearchAPIModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
