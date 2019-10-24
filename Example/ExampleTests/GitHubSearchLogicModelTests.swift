@@ -13,7 +13,7 @@ import XCTest
 class GitHubSearchLogicModelTests: XCTestCase {
 
     private var debounce: MockDebounce!
-    private var model: GitHubSearchLogicModel!
+    private var testTarget: GitHubSearchLogicModel!
     private var delegateProxy: DelegateProxy<GitHubSearchAPIModelDelegate>!
     private var delegate: MockGitHubSearchLogicModelDelegate!
     private var searchAPIModel: MockGitHubSearchAPIModel!
@@ -22,22 +22,22 @@ class GitHubSearchLogicModelTests: XCTestCase {
         self.debounce = MockDebounce()
         self.searchAPIModel = MockGitHubSearchAPIModel()
         self.delegate = MockGitHubSearchLogicModelDelegate()
-        self.model = GitHubSearchLogicModel(extra: .init(searchAPIModel: searchAPIModel,
-                                                         debounce: debounce))
-        model.connect(delegate)
+        self.testTarget = GitHubSearchLogicModel(extra: .init(searchAPIModel: searchAPIModel,
+                                                              debounce: debounce))
+        testTarget.connect(delegate)
         self.delegateProxy = searchAPIModel.delegate
     }
 
     func test_query_is_not_empty() {
         let query = "search query"
-        model.action.searchText(query)
+        testTarget.action.searchText(query)
         XCTAssertEqual(searchAPIModel.query, query)
         XCTAssertEqual(searchAPIModel.calledCount, 1)
     }
 
     func test_query_is_empty() {
         let query = ""
-        model.action.searchText(query)
+        testTarget.action.searchText(query)
         XCTAssertNil(searchAPIModel.query)
         XCTAssertEqual(searchAPIModel.calledCount, 0)
     }

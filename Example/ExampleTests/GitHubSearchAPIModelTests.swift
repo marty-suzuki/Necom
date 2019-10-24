@@ -12,20 +12,20 @@ import XCTest
 
 class GitHubSearchAPIModelTests: XCTestCase {
 
-    private var model: GitHubSearchAPIModel!
+    private var testTarget: GitHubSearchAPIModel!
     private var session: MockURLSession!
     private var delegate: MockGitHubSearchAPIModelDelegate!
 
     override func setUp() {
         self.session = MockURLSession()
-        self.model = GitHubSearchAPIModel(extra: .init(dataTask: session.dataTask))
+        self.testTarget = GitHubSearchAPIModel(extra: .init(dataTask: session.dataTask))
         self.delegate = MockGitHubSearchAPIModelDelegate()
-        model.connect(delegate)
+        testTarget.connect(delegate)
     }
 
     func test_request() throws {
         let query = "Necom"
-        model.action.searchRepository(query)
+        testTarget.action.searchRepository(query)
         let request = try XCTUnwrap(session.request)
 
         XCTAssertEqual(request.url?.query, "q=" + query)
@@ -34,7 +34,7 @@ class GitHubSearchAPIModelTests: XCTestCase {
     func test_response_is_success() {
         let expected = [GitHub.Repository.mock]
         session.mockResponse = .success(expected)
-        model.action.searchRepository("")
+        testTarget.action.searchRepository("")
 
         XCTAssertEqual(delegate._searchResponse?.items, expected)
     }
@@ -42,7 +42,7 @@ class GitHubSearchAPIModelTests: XCTestCase {
     func test_response_is_failure() {
         let expected = MockError()
         session.mockResponse = .failure(expected)
-        model.action.searchRepository("")
+        testTarget.action.searchRepository("")
 
         XCTAssertTrue(delegate._searchError is MockError)
     }

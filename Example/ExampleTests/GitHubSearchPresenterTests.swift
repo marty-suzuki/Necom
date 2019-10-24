@@ -13,21 +13,21 @@ import XCTest
 class GitHubSearchPresenterTests: XCTestCase {
 
     private var searchLogicModel: MockGitHubSearchLogicModel!
-    private var presenter: GitHubSearchPresenter!
+    private var testTarget: GitHubSearchPresenter!
     private var view: MockGitHubSearchView!
     private var delegateProxy: DelegateProxy<GitHubSearchLogicModelDelegate>!
 
     override func setUp() {
         self.searchLogicModel = MockGitHubSearchLogicModel()
         self.view = MockGitHubSearchView()
-        self.presenter = GitHubSearchPresenter(searchLogicModel: searchLogicModel)
-        presenter.connect(view)
+        self.testTarget = GitHubSearchPresenter(searchLogicModel: searchLogicModel)
+        testTarget.connect(view)
         self.delegateProxy = searchLogicModel.delegate
     }
 
     func test_query() {
         let query = "search query"
-        presenter.action.searchText(query)
+        testTarget.action.searchText(query)
         XCTAssertEqual(searchLogicModel.query, query)
         XCTAssertEqual(searchLogicModel.calledCount, 1)
     }
