@@ -32,9 +32,7 @@ class GitHubSearchAPIModelTests: XCTestCase {
     }
 
     func test_response_is_success() {
-        let expected = [GitHub.Repository(name: "test-name",
-                                          fullName: "test-fullName",
-                                          htmlUrl: URL(string: "https://github.com")!)]
+        let expected = [GitHub.Repository.mock]
         session.mockResponse = .success(expected)
         model.action.searchRepository("")
 
@@ -82,8 +80,6 @@ extension GitHubSearchAPIModelTests {
         func resume() {}
         func cancel() {}
     }
-
-    private struct MockError: Error {}
 
     private final class MockGitHubSearchAPIModelDelegate: GitHubSearchAPIModelDelegate {
 
