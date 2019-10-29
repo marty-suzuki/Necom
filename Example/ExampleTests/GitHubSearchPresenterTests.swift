@@ -35,13 +35,14 @@ class GitHubSearchPresenterTests: XCTestCase {
     func test_repositories() {
         let expected = [GitHub.Repository.mock]
         delegateProxy.repositories(expected)
-        XCTAssertEqual(view._repositories, expected)
+        XCTAssertEqual(view.reloadDataCalledCount, 1)
+        XCTAssertEqual(testTarget.state.repositories, expected)
     }
 
     func test_errorMessage() {
         let error = MockError()
         delegateProxy.error(error)
-        XCTAssertEqual(view._errorMessage, error.localizedDescription)
+        XCTAssertEqual(view.errorMessage, error.localizedDescription)
     }
 }
 
@@ -67,15 +68,17 @@ extension GitHubSearchPresenterTests {
     }
 
     private final class MockGitHubSearchView: GitHubSearchView {
-        private(set) var _repositories: [GitHub.Repository]?
-        private(set) var _errorMessage: String?
+        private(set) var reloadDataCalledCount = 0
+        private(set) var errorMessage: String?
 
-        var repositories: Binder<[GitHub.Repository]> {
-            Binder(self, \._repositories)
+        var reloadData: Binder<Void> {
+            Binder(self) { me, _ in
+                me.reloadDataCalledCount += 1
+            }
         }
 
-        var errorMessage: Binder<String> {
-            Binder(self, \._errorMessage)
+        var showErrorMessage: Binder<String> {
+            Binder(self, \.errorMessage)
         }
     }
 }

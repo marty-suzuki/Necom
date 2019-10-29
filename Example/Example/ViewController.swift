@@ -10,8 +10,8 @@ import Necom
 import UIKit
 
 protocol GitHubSearchView: AnyObject {
-    var repositories: Binder<[GitHub.Repository]> { get }
-    var errorMessage: Binder<String> { get }
+    var reloadData: Binder<Void> { get }
+    var showErrorMessage: Binder<String> { get }
 }
 
 final class ViewController: UIViewController {
@@ -20,7 +20,6 @@ final class ViewController: UIViewController {
     let tableView = UITableView(frame: .zero)
 
     private let presenter: GitHubSearchPresenterType = GitHubSearchPresenter()
-    private var _repositories: [GitHub.Repository] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,14 +49,13 @@ final class ViewController: UIViewController {
 }
 
 extension ViewController: GitHubSearchView {
-    var repositories: Binder<[GitHub.Repository]> {
-        Binder(self, queue: .main) { me, repositories in
-            me._repositories = repositories
+    var reloadData: Binder<Void> {
+        Binder(self, queue: .main) { me, _ in
             me.tableView.reloadData()
         }
     }
 
-    var errorMessage: Binder<String> {
+    var showErrorMessage: Binder<String> {
         Binder(self, queue: .main) { me, message in
             let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
@@ -68,12 +66,12 @@ extension ViewController: GitHubSearchView {
 
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return _repositories.count
+        return presenter.state.repositories.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! SubtitleTableViewCell
-        let repository = _repositories[indexPath.row]
+        let repository = presenter.state.repositories[indexPath.row]
         cell.textLabel?.text = repository.fullName
         cell.detailTextLabel?.text = repository.htmlUrl.absoluteString
         return cell
